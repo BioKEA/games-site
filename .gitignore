@@ -1,0 +1,14 @@
+node_modules
+dist
+.astro/
+/test-results/
+/playwright-report/
+# Built game bundles — produced by scripts/build-games.mjs at build time.
+/public/*/
+!/public/assets/
+.env
+.env*.local
+.dev.vars
+.wrangler/
+.DS_Store
+*.log

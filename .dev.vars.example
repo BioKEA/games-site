@@ -1,0 +1,2 @@
+# Copy to .dev.vars for local dev. Only needed for /api/handle-check.
+SUPABASE_SERVICE_ROLE_KEY=

@@ -1,0 +1,21 @@
+---
+// src/components/layout/Footer.astro
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-[var(--color-ink)] text-slate-400 mt-24">
+  <div
+    class="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-sm"
+  >
+    <p>© {year} BioKEA · Berkeley, CA</p>
+    <ul class="flex items-center gap-6 font-mono text-[11px] tracking-[0.1em] uppercase">
+      <li>
+        <a href="https://biokea.ai/privacy" class="hover:text-[var(--color-teal-bright)]">Privacy</a
+        >
+      </li>
+      <li>
+        <a href="https://biokea.ai" class="hover:text-[var(--color-teal-bright)]">biokea.ai →</a>
+      </li>
+    </ul>
+  </div>
+</footer>

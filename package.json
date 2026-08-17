@@ -1,0 +1,48 @@
+{
+  "name": "biokea-games-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "node scripts/build-games.mjs && astro build",
+    "games:build": "node scripts/build-games.mjs",
+    "games:verify": "node scripts/verify-games.mjs",
+    "preview": "astro preview",
+    "check": "astro check",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "lint": "prettier --check \"src/**/*.{astro,ts,tsx,md,css}\" \"scripts/**/*.mjs\" \"tests/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.{astro,ts,tsx,md,css}\" \"scripts/**/*.mjs\" \"tests/**/*.ts\"",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{astro,ts,tsx,md,mjs,json,css}": [
+      "prettier --write"
+    ]
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "^13.0.0",
+    "@tailwindcss/vite": "^4.2.0",
+    "astro": "^6.0.0",
+    "tailwindcss": "^4.2.0",
+    "zod": "^4.0.0"
+  },
+  "overrides": {
+    "vite": "^7.0.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.8",
+    "@fontsource/inter": "^5.1.0",
+    "@fontsource/jetbrains-mono": "^5.1.0",
+    "@playwright/test": "^1.48.0",
+    "@types/node": "^22.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.8.1",
+    "prettier-plugin-astro": "^0.14.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.4"
+  }
+}

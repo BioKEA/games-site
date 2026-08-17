@@ -1,0 +1,16 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Eyebrow from '@/components/ui/Eyebrow.astro';
+---
+
+<BaseLayout title="Not found — BioKEA Games" description="That page doesn't exist." noindex>
+  <section class="max-w-6xl mx-auto px-6 pt-16 pb-24">
+    <Eyebrow>404</Eyebrow>
+    <h1 class="mt-3 text-4xl font-semibold tracking-[-0.025em] text-[var(--color-ink)]">
+      Nothing here.
+    </h1>
+    <p class="mt-4 text-slate-600">
+      <a href="/" class="text-[var(--color-teal)] underline">Back to all games →</a>
+    </p>
+  </section>
+</BaseLayout>

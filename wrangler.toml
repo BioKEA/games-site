@@ -1,0 +1,17 @@
+name = "biokea-games"
+compatibility_date = "2026-04-18"
+
+# Astro's Cloudflare adapter emits the worker entry + static assets;
+# wrangler deploy picks them up from dist/ via `astro build`.
+# Deployed by .github/workflows/deploy.yml on push to main; the custom
+# domain games.biokea.ai is attached to this Worker in the Cloudflare
+# dashboard (Workers → biokea-games → Settings → Domains & Routes).
+#
+# Secrets — set once:
+#   wrangler secret put SUPABASE_SERVICE_ROLE_KEY
+#     # Read by /api/handle-check to load forbidden_handle_patterns
+#     # (RLS-locked). Never expose to the client.
+
+[vars]
+SUPABASE_URL = "https://xkmfsxcaapyuxachtcsy.supabase.co"
+SUPABASE_PUBLISHABLE_KEY = "sb_publishable_HmeteofpCTVchDfmzrMAxg_y0ea1IM1"

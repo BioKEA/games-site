@@ -1,0 +1,47 @@
+---
+// src/components/layout/Nav.astro
+// Games-site nav: logo back to the marketing site, two local links, and a
+// CTA to the lab-updates subscribe page on biokea.ai (link-out — no
+// cross-origin form posts from this site).
+const links = [
+  { href: '/', label: 'Games' },
+  { href: '/leaderboard', label: 'Leaderboard' },
+];
+const cta = { href: 'https://biokea.ai/subscribe?source=games', label: 'Lab updates' };
+---
+
+<nav aria-label="Primary" class="bg-[var(--color-ink)] text-[var(--color-cream)]">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
+    <a href="https://biokea.ai" aria-label="BioKEA home" class="flex items-center gap-3 shrink-0">
+      <img
+        src="/assets/images/logo2-white.png"
+        alt=""
+        width="256"
+        height="136"
+        class="h-14 w-auto"
+      />
+      <span class="sr-only">BioKEA</span>
+    </a>
+    <div class="flex items-center gap-5 sm:gap-7">
+      <ul
+        class="flex items-center gap-5 sm:gap-7 text-base font-medium text-slate-300 tracking-wide"
+      >
+        {
+          links.map((link) => (
+            <li>
+              <a href={link.href} class="hover:text-[var(--color-teal-bright)] transition">
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a
+        href={cta.href}
+        class="bg-[var(--color-cream)] text-[var(--color-ink)] px-4 py-2 rounded-sm text-base font-semibold hover:bg-[var(--color-teal-bright)] transition whitespace-nowrap"
+      >
+        {cta.label} →
+      </a>
+    </div>
+  </div>
+</nav>
