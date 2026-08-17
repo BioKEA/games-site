@@ -52,6 +52,15 @@ const supabaseUrl = process.env.SUPABASE_URL;
 const supabasePublishableKey = process.env.SUPABASE_PUBLISHABLE_KEY;
 const hasSupabaseSecrets = !!(supabaseUrl && supabasePublishableKey);
 
+// In CI a missing/rotated secret must fail the deploy loudly rather than
+// ship six games whose leaderboards silently no-op against stub.invalid.
+if (process.env.CI && !hasSupabaseSecrets) {
+  console.error(
+    '[games-build] SUPABASE_URL and SUPABASE_PUBLISHABLE_KEY are required in CI (leaderboard-enabled games would build against stub.invalid).',
+  );
+  process.exit(1);
+}
+
 const stubEnv = {
   VITE_SUPABASE_URL: 'https://stub.invalid',
   VITE_SUPABASE_ANON_KEY: 'stub-anon-key',
@@ -218,6 +227,11 @@ for (const game of games) {
       cwd: work,
       env: { ...gitEnv, ...buildEnv },
     });
+    // public/<slug>/ shares the namespace with tracked assets; never let a
+    // slug clobber them (and .gitignore's /public/*/ would hide the loss).
+    if (['assets'].includes(game.slug) || game.slug.includes('/') || game.slug.startsWith('.')) {
+      throw new Error(`refusing to build into reserved/invalid public/${game.slug}/`);
+    }
     const out = join(root, 'public', game.slug);
     rmSync(out, { recursive: true, force: true });
     cpSync(join(work, 'dist'), out, { recursive: true });

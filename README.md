@@ -47,3 +47,5 @@ Custom domain, once: Cloudflare dashboard → Workers & Pages →
    in `src/data/leaderboard-games.ts`, and to `LEADERBOARD_ENABLED` in
    `scripts/build-games.mjs`.
 3. Drop a 1200×675 thumbnail in `public/assets/games/`.
+4. Add the slug to `SOURCE_LABELS` in `website-biokea/src/pages/subscribe.astro`
+   so the in-game "Lab updates" pill lands on a personalised subscribe page.

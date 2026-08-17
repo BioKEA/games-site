@@ -26,9 +26,12 @@ export function checkBundle(html, slug) {
   return problems;
 }
 
+// Only repo-backed games are built by build-games.mjs; mirror its regex so
+// a repo-less entry (documented in games.ts) can't hard-fail every deploy.
 function readSlugs(root) {
   const src = readFileSync(join(root, 'src', 'data', 'games.ts'), 'utf-8');
-  return Array.from(src.matchAll(/slug:\s*['"]([^'"]+)['"]/g), (m) => m[1]);
+  const re = /\{[^{}]*?slug:\s*['"]([^'"]+)['"][^{}]*?repo:\s*['"]([^'"]+)['"]/gs;
+  return Array.from(src.matchAll(re), (m) => m[1]);
 }
 
 // Only run the CLI when executed directly (not when imported by tests).
