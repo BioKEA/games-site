@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { checkBundle } from '../../scripts/verify-games.mjs';
+import { checkBundle, findStaleGameUrls } from '../../scripts/verify-games.mjs';
 
 const GOOD =
   '<html><head><script async src="https://www.googletagmanager.com/gtag/js?id=G-WYL7J2D7SG"></script></head>' +
@@ -30,5 +30,31 @@ describe('checkBundle', () => {
   it('flags a missing analytics snippet', () => {
     const html = GOOD.replace('G-WYL7J2D7SG', 'G-NOPE');
     expect(checkBundle(html, 'codon2048')).toContain('GA snippet missing');
+  });
+});
+
+describe('findStaleGameUrls', () => {
+  it('returns nothing when no file references the retired biokea.ai/mission/games paths', () => {
+    expect(
+      findStaleGameUrls([
+        { name: 'index.html', content: GOOD },
+        { name: 'assets/index-abc.js', content: 'href:"https://games.biokea.ai/leaderboard"' },
+      ]),
+    ).toEqual([]);
+  });
+
+  it('names each file that still hardcodes a biokea.ai/mission/games URL', () => {
+    const problems = findStaleGameUrls([
+      { name: 'index.html', content: GOOD },
+      {
+        name: 'assets/index-abc.js',
+        content: 'description:"View it at biokea.ai/mission/games/leaderboard"',
+      },
+      { name: 'assets/vendor-def.js', content: 'shown publicly on biokea.ai/mission/games/.' },
+    ]);
+    expect(problems).toEqual([
+      'assets/index-abc.js references retired biokea.ai/mission/games URL',
+      'assets/vendor-def.js references retired biokea.ai/mission/games URL',
+    ]);
   });
 });
